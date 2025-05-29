@@ -1,0 +1,81 @@
+d1 $ sound "sd:2*2" #room 0.6 # size 0.9 # dry 0.3 # delay "0.4" # delayt 0.2 # delayfb 0.4 # cut 1
+
+d2 $ sound "kick:6*4" #gain 1.3 # cut 1
+
+
+crushbus 1 (segment 128 $ smooth "3 6")
+
+d2 $ sound "bd:3*4" #crush 4
+
+d1 $ sound "{sd:2*2}"
+
+d3 $ sound "arpy*8" #crush 5
+
+d1 $ n "{0 1, 2 3 4}" # sound "bd"
+
+hush
+
+d2 $ silence
+
+d1 $ fast 2 $ n "6 6 " # sound "kick*4" # gain "1.3" # hpf 10
+
+d2 $ splice 4 "4 8 4 4 4 4 " $ sound "break:8" # room "0.3" #crush "9" #gain "1" # vowel "a e u i"
+
+d3 $ fast 1 $ sound "cpu:5*16" # room "0.4" # cut 1
+
+d5 $ fast 1 $ sound "cpu:6(3,8)" # cut 1
+
+d4 $ slice 4 "1 2 1 2" $ sound "bsbass:4" # room "0.3" # gain "0.85" #crush "5"
+
+d4 $ slice 8 "1 3 7 4 1 4 1 4" $ sound "bsbass:4" # room "0.3" # gain "0.85" #crush "5"
+
+setcps(135/60/4)
+
+d1 $ brak $ sound "[feel feel:3, hc:3 hc:2 hc:4 ho:1]"
+
+d3 $ n (run 8) # sound "amencutup"
+
+d1 $ n (scan "<4 8 4 6>") # sound "amencutup"
+
+d1 $ every 4 (fast 1.5) $ s "kick:6*4"
+
+d2 $ qt $ s "cp*2"
+
+d1 $ stack [
+  sound "kick:6*4",
+  sound "hh*6" #gain "1.1",
+  sound "cp*2"
+]
+
+d1 $ whenmod 5 3 (striate 3) $ stack [
+  sound "bd bd*2",
+  sound "hh*2 [sn cp] cp future*4",
+  sound "arpy" +| n "0 .. 15"
+] # speed "[[1 0.8], [1.5 2]*2]/3"
+
+
+d1 $ foldEvery [5,3] (|+ n 1) $ s "moog" # legato 1
+
+d1 $ when ((elem '4').show) (striate 4) $ sound "hh hc"
+
+d1 $ ifp ((== 0).(flip mod 2))
+  (striate 4)
+  (# coarse "24 48") $
+  sound "hh hc"
+
+d1 $ slow 2 $ fix (# crush 3) (n "[1,4]") $ n "0 1 2 3 4 5 6" # sound "arpy"
+
+d4 $ fast 96 $ contrastBy (>=) (|+ n 12) (|- n 12) (n "2") $ n "3 4 7 [4 2]" # s "superpiano" # room "0.4" # crush 3 # gain "0.9"
+
+d1 $ mask "t t t ~ t t ~ t"
+  $ s (cat ["sn*8", "[cp*4 bd*4, bass*5]"])
+  # n (run 8)
+
+d1 $ sew "t <f t> <f [f t] t>" (n "0 .. 15" # s "future") (s "cp:3*16" # speed saw + 1.2)
+
+d1 $ euclid "<3 5>" "[8 16]/4" $ s "bd"
+
+d1 $ stack [euclid 5 8 $ s "bd",
+            euclidInv 5 8 $ s "hh27"]
+
+hush

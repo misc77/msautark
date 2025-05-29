@@ -1,0 +1,70 @@
+
+setcps(135/60/4)
+
+-- kick pattern
+let pats =
+      [( "k1", stack[s "kick:6*4" # gain 1.15 # hpf 10 #room 0.5 #dry 0.1 ]),
+       ( "k2", stack[s "kick:6(3,8)" # gain 1.15 # hpf 10 #room 0.5 #dry 0.1]),
+       ( "k3", stack[s "kick:6*8" # gain 1.15 # hpf 10 #room 0.5 #dry 0.1]),
+       ( "k4", stack[s "kick:6*16" # gain 1.15 # hpf 100 #room 0.5 #dry 0.1]),
+       ( "r", s "kick:2" # mu 9 # gain 0.7 # verb 0.9 0.9 0.1 0.2)]
+in
+d1 $ ur 16 "k1 k1 k1 k2 k1 k1 k1 k1 k2 k1 k2 k1 k3" pats []
+
+-- kick
+d1 $ s "kick:6*4" # gain 1 # hpf 10 #room 0.5 #dry 0.1
+
+d1 $ qt $ s (step "kick:6" "x ~ . x ~ . x ~") # gain 1.15 # hpf 100 #room 0.5 #dry 0.1
+
+d1 $ s "kick:6*16" # gain 1 # hpf 120 #room 0.5 # delay 0.3 # delayfb 0.2 # delayt 0.3
+
+-- rumble
+d2 $ s "kick:2"
+  # gain 1
+  # verb 0.9 0.9 0.1 0.2
+
+-- hihat
+d3 $ press $ s "cpu2:6*4" # verb 0.3 0.3 0.3 0.2 # gain 0.95 #hpf 4000
+
+d4 $ press $ s "clap:6*2" # room 0.3 # gain 0.65 # crush 6 # delay 0.2 # delayt 0.2
+
+-- synth
+d5 $ press $ n "<d'dim7'4*<2,4> f'dim7'4*<4,2>> <f'dim7'7*3 f'maj7'7*3>" # s "plaits"
+    # octave "<2>"
+    # engine "<13,11,10,12>"
+    # timbre (slow 16 sine)
+    # harm 1
+    # morph 7
+    # level 0.5
+    # room (slow 0.6 saw)
+    # gain 0.6
+
+xfade 5 $ press $ n "<d'dim7'4*2 f'dim7'4*<4,2>> <f'dim7'7*3 f'maj7'7*3>" # s "plaits"
+        # octave "<2>"
+        # engine "<13,11,10, 3>"
+        # timbre (slow 16 sine)
+        # harm 1
+        # morph 7
+        # level 0.5
+        # room (slow 1 saw)
+        # gain 0.7
+
+xfade 5 $ press $ s "dbass:1(<4 5 4>,4)" # room 0.4 # dry 0.2 # gain 0.7 # crush 9 # lpf 1000 #delay 0.4
+
+xfade 5 $ press $ n "<d'dim7'4*2 f'dim7'4*<4,2>> <f'dim7'7*3 f'maj7'7*3>" # s "dbass:3"
+  # room 0.4
+  # dry 0.2
+  # gain 0.5
+  # crush 9
+  # lpf ( slow 4 $ range 200 1000 sine)
+  # delay 0.4
+
+-- ride
+d6 $ slice 8 "0 1 2 <3*2, 3> 4 5 6 7" $ s "break:17" # cut 1 # room "0.3" # gain 0.65 # hpf 100
+
+-- noise
+d7 $ s "bsnoise:2" # gain 0.8 # (slow 4 $ range 0.6 0.75 sine) # crush ( slow 2 $ range 5 7 sine) #hpf 100
+
+xfade 8 $ rev $ slice 8 "0 1 2 3 4 5 6 7" $ s "bsvocals:3" # verb 0.9 0.4 0.5 0.9 # delay 0.5 # gain 0.8
+
+d8 $ silence

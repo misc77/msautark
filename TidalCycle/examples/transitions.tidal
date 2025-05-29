@@ -1,0 +1,21 @@
+d1 $ s "kick:4*4"
+
+xfade 1 $ fast 2 $ n "{6 3}" # s "kick*4" #gain "1.1" #crush 9
+
+xfadeIn 1 8 $ s "kick:5(3,8)"
+
+clutch 1 $ s "kick:5(3,8)"
+
+histpan 1 4 $ fast 2 $ n "{6 3}" # s "kick*4" #gain "1.1" #crush 9
+
+d1 $ sound "arpy*16" # cutoff 100
+
+interpolate 1 $ sound "arpy*16" # cutoff 16000
+
+d1 silence
+
+d1 $ s "[bd ~ [bd [ht lt]] ho]"
+
+d2 $ fadeOut 1 $ s "hh27:2*4 cp*3"
+
+wait 2 4 $ s "feel:4*4 cp*3"

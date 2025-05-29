@@ -1,0 +1,39 @@
+d1 $ s "arpy" # amp "<0.4 0.8 0.2>"
+
+d1 $ s "arpy" # accelerate 2
+
+d5 $ arp "up" $ note "c'maj'4" # s "arpy" # accelerateTake "susan" [0.2,1,-1]
+
+-- timestretch
+
+d3 $ slow 2 $ s "breaks152" # legato 1 # timescale (152/130) # cps (130/60/4) # lpf 15000
+
+d3 silence
+
+d1 $ slow 2 $ s "breaks152" # legato 1 # timescale (152/130) # timescalewin 0.01 # cps (130/60/4)
+
+d1 $ slow 2 $ s "breaks152" # legato 1 # timescale (152/130) # timescalewin 10 # cps (130/60/4)
+
+d1 $ chop "<16 8 4>" $ sound "arpy ~ feel*2 newnotes"
+
+d1 $ loopAt 8 $ chop 32 $ sound "bev" # room 0.4 # speed 1
+
+d1 $ slow 4 $ chop 3 $ sound "numbers:0 numbers:1 numbers:2 numbers:3"
+
+d1 $ slow 2 $ striate 3 $ sound "numbers:0 numbers:1 numbers:2 numbers:3" # room 0.3 # delay 0.4 # delayfb 0.7 # dry 0.2
+
+d1 $ fast 8 $ randslice 64 $ sound "bev" # gain 1.1 # room 0.2
+
+d2 $ s "kick:6*4" # gain 1.2 # hpf 10
+
+d2 $ s "kick:6*16" # gain 1.1 # hpf 100
+
+d1 $ bite 4 "0 1*2 2*2 [~ 3]" $ n "0 .. 7" # sound "drum"
+
+d1 $ chew 4 "0 1*2 2*2 [~ 3]" $ n "0 .. 7" # sound "drum"
+
+d1 $ loopAt 1 $ chop 32 $ rev $ sound "breaks125" # room 0.8
+
+d1 $ smash 3 [2,3,4] $ sound "ho ho:2 ho:3 hc"
+
+d1 $ n (slow 2 $ segment 16 $ range 0 32 $ sine) # sound "amencutup"

@@ -1,0 +1,19 @@
+d1 $ jux rev $ chunk 2 (fast 2 . (|- n 12)) $ off 0.25 (|+ 7) $ struct (iter 4 "t(3,8)")
+  $ n (scale "lydianMinor" "0 .. 7") # n "{3, 2}" # sound "bass" # lpf ( perlin * 10 * "1000")
+
+
+d1 $ n (arp "<pinkyup pinkydown>" "<a'm9'8 e'7sus4'8>") # sound "bass"
+
+d1 $ rolled $ n "<a'm9'8 e'7sus4'8>" # sound "superpiano"
+
+d1 $ rolledBy rand $ n "<a'm9'8 e'7sus4'8>" # sound "superpiano" #room "0.96" # dry "0.1" # delay "9" #delayfb "0.4" #gain "0.3"
+
+d2 $ s "kick:6*4" # hpf 10 # gain "1.2"
+
+d4 $ s "sd*2" # gain 0.8 # room "0.4"
+
+d3 $ slice 8 "0 1 2 5 3" $ s "break:8" # gain "1.2" #room "0.1" #crush 7
+
+d1 $ fast 2 $ n "<c'min9'8*3 d'min9'4*2 d'min7'4*2>" # sound "bass:3" # room 0.8 # dry 0.1 #gain 0.9 #lpf 1000 # resonance 0.4
+
+d2 silence
